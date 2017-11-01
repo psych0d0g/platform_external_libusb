@@ -16,18 +16,28 @@ cc_library {
         "libusb/os",
     ],
 
+    cflags: [
+        "-Wall",
+        "-Wno-error=sign-compare",
+        "-Wno-error=switch",
+    ],
+
     target: {
-        android: {
+        linux: {
             srcs: [
                 "libusb/os/linux_usbfs.c",
                 "libusb/os/poll_posix.c",
                 "libusb/os/threads_posix.c",
                 "libusb/os/linux_netlink.c",
             ],
+        },
 
+        android: {
             local_include_dirs: [
                 "android",
             ],
+
+            cflags: ["-Werror"],
         },
 
         darwin: {
@@ -46,23 +56,16 @@ cc_library {
                 "-framework IOKit",
                 "-lobjc"
             ],
+
+            // cflags: ["-Werror"], // still has warnings
         },
 
-        linux: {
-            srcs: [
-                "libusb/os/linux_usbfs.c",
-                "libusb/os/poll_posix.c",
-                "libusb/os/threads_posix.c",
-                "libusb/os/linux_netlink.c",
-            ],
-
+        linux_glibc: {
             local_include_dirs: [
                 "linux",
             ],
 
-            host_ldlibs: [
-                "-lrt",
-            ],
+            cflags: ["-Werror"],
         },
 
         windows: {
@@ -77,6 +80,8 @@ cc_library {
             local_include_dirs: [
                 "windows",
             ],
+
+            cflags: ["-Werror"],
 
             // Not working yet.
             enabled: false,
