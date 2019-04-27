@@ -14,7 +14,7 @@ LOCAL_C_INCLUDES += \
  external/libusb/libusb/ \
  external/libusb/libusb/os
 
-LOCAL_CFLAGS := -D_SHARED_LIBRARY_
+#LOCAL_CFLAGS := -D_SHARED_LIBRARY_
 LOCAL_MODULE_TAGS:= optional
 LOCAL_MODULE:= libusb
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)
